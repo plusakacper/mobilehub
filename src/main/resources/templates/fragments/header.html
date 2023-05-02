@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+</head>
+
+<body>
+
+
+<div th:fragment="header">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #7d8d9d;">
+    <div class="container-fluid">
+      <a class="navbar-brand" th:href="@{/home}">MobileHub</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <th:block sec:authorize="!isAuthenticated()">
+            <li class="nav-item">
+              <a class="nav-link active" th:href="@{/login}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" th:href="@{/register}">Register</a>
+            </li>
+          </th:block>
+          <th:block sec:authorize="isAuthenticated()">
+            <li class="nav-item">
+              <a class="nav-link active" th:href="@{/logout}">Logout</a>
+            </li>
+          </th:block>
+        </ul>
+        <ul class="navbar-nav">
+          <th:block sec:authorize="isAuthenticated()">
+            <li class="nav-item" style="text-align:right">
+              <span class="nav-link">Logged user: </span>
+            </li>
+            <li class="nav-item" style="text-align:right">
+              <b><a class="nav-link active" aria-current="page" th:text="'' + ${#authentication.getPrincipal().getUsername()}">Logged user</a></b>
+            </li>
+<!--            <li class="nav-item" style="text-align:right">-->
+<!--              <span class="nav-link">Role: </span>-->
+<!--            </li>-->
+<!--            <li class="nav-item" style="text-align:right">-->
+<!--              <b><a class="nav-link active" aria-current="page" th:text="'' + ${#authentication.getPrincipal().getAuthorities}"></a></b>-->
+<!--            </li>-->
+          </th:block>
+          <li class="nav-item" style="text-align:right">
+            <a class="nav-link" th:href="@{/cart}"><img th:src="@{/images/icons8-shopping-cart-48.png}" style="width:23px;height:23px;margin-left:30px;"/>Cart</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+</body>
+</html>
